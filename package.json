@@ -5,11 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "human-readable-ids": "^1.0.1",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "express": "^4.10.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

@@ -1,13 +1,15 @@
+"use strict";
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var hri = require('human-readable-ids').hri;
 
-app.use(express.static('public'));
+app.use(express.static(process.cwd() + '/public'));
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + 'public/index.html');
+  res.sendFile(process.cwd() + 'public/index.html');
 });
 
 var clients = new Map();
@@ -57,7 +59,7 @@ var getName = function(socket){
 		return randomName;
 	}
 };
-
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+var port = process.env.PORT || 3000;
+http.listen(port, function(){
+  console.log('listening on *:'+port);
 });
