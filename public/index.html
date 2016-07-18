@@ -48,25 +48,65 @@
                 <ul id="users" class="media-list"></ul>
                 </div>
             </div>
-        
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+               Change name
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Username" id="userName"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" id="changeButton" type="button">CHANGE</button>
+                                    </span>
+                                </div>
+            </div>
     </div>
 </div>
   </div>
 </body>
 <script type="text/javascript">
-  var socket = io("http://127.0.0.1:3000/", { query: "username=bar" });
+  var socket = io();
   $('#sendButton').click(function(){
+    sendMessage();
+  });
+
+  $("#textField").keyup(function(e){ 
+    var code = e.which; // recommended to use e.which, it's normalized across browsers
+    if(code==13){
+        e.preventDefault();
+    }
+
+    if(code==13){
+        sendMessage();
+    }
+});
+
+
+  $('#changeButton').click(function(){
+    let username =  $('#userName').val();
+    if(username){
+        socket.emit('trigger name change', $('#userName').val());
+        $('#userName').val('');
+        console.log("Send: '" + username +"' to server");
+    }else{
+        console.log("Prevent sending empty message!");
+    }
+    
+    return false;
+  });
+
+  var sendMessage = function(){
     let msg =  $('#textField').val();
     if(msg){
         socket.emit('chat message', $('#textField').val());
         $('#textField').val('');
         console.log("Send: '" + msg +"' to server");
     }else{
-        console.log("Did not send empty message!");
+        console.log("Prevent sending empty message!");
     }
     
     return false;
-  });
+  };
 
   socket.on('chat message', function(msg){
     let divMsg = $('<div>');
@@ -85,6 +125,10 @@
         ulUsers.append(divUser);
     }
     $("#users").replaceWith(ulUsers);
+  });
+
+  socket.on('name change', function(name){
+    $("#userName").val(name);
   });
 </script>
 </html>

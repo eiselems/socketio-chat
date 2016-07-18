@@ -4,6 +4,7 @@
   "description": "simple socket.io application",
   "main": "index.js",
   "dependencies": {
+    "human-readable-ids": "^1.0.1",
     "socket.io": "^1.4.8"
   },
   "devDependencies": {},
