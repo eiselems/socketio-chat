@@ -65,7 +65,7 @@
   </div>
 </body>
 <script type="text/javascript">
-  var socket = io();
+  var socket = io().connect('http://localhost',{'sync disconnect on unload':true});
   $('#sendButton').click(function(){
     sendMessage();
   });
@@ -108,11 +108,21 @@
     return false;
   };
 
-  socket.on('chat message', function(msg){
+  var showMessage = function(msg){
     let divMsg = $('<div>');
     $('#messages').append(divMsg);
     let msgHtml = '<div class="media"><a class="pull-left" href="#"><img class="media-object img-circle " src="assets/img/user.png"></a><div class="media-body">'+msg.msg+'<br><small class="text-muted">'+msg.username+' | 23rd June at 5:00pm</small><hr></div></div>'; 
     divMsg.html(msgHtml);
+  };
+
+  socket.on('chat message', function(msg){
+    showMessage(msg);
+  });
+
+  socket.on('messages', function(msgs){
+    for (msg of msgs){
+        showMessage(msg);
+    }
   });
 
   socket.on('user update', function(users){

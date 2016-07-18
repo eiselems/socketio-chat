@@ -5,6 +5,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var hri = require('human-readable-ids').hri;
+var messages = [];
+
 
 app.use(express.static(process.cwd() + '/public'));
 
@@ -22,6 +24,7 @@ io.on('connection', function(socket){
   let arr = Array.from(clients.values());
 
   socket.emit('name change', getName(socket));
+  socket.emit('messages', messages);
   io.emit('user update', arr);
   
   socket.on('disconnect', function(){
@@ -37,6 +40,10 @@ io.on('connection', function(socket){
   	out.msg = msg;
   	out.username = getName(socket);
     io.emit('chat message', out);
+    messages.push(out);
+    if(messages.length>10){
+      messages.shift();
+    }
   });
 
   socket.on('trigger name change', function(username){
