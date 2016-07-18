@@ -1,0 +1,26 @@
+{
+  "name": "socket-chat-eiselems",
+  "version": "0.0.1",
+  "description": "simple socket.io application",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eiselems/socketio-chat.git"
+  },
+  "keywords": [
+    "socket.io",
+    "chat",
+    "bootstrap"
+  ],
+  "author": "eiselems",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eiselems/socketio-chat/issues"
+  },
+  "homepage": "https://github.com/eiselems/socketio-chat#readme"
+}
