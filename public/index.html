@@ -111,7 +111,7 @@
   var showMessage = function(msg){
     let divMsg = $('<div>');
     $('#messages').append(divMsg);
-    let msgHtml = '<div class="media"><a class="pull-left" href="#"><img class="media-object img-circle " src="assets/img/user.png"></a><div class="media-body">'+msg.msg+'<br><small class="text-muted">'+msg.username+' | 23rd June at 5:00pm</small><hr></div></div>'; 
+    let msgHtml = '<div class="media"><a class="pull-left" href="#"><img class="media-object img-circle " src="assets/img/user.png"></a><div class="media-body">'+msg.msg+'<br><small class="text-muted">'+msg.username+' | '+msg.time+'</small><hr></div></div>'; 
     divMsg.html(msgHtml);
   };
 

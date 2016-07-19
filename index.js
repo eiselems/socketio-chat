@@ -5,7 +5,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var hri = require('human-readable-ids').hri;
-var messages = [{'msg':'This sadly gets flushed once Heroku restarts the dyno', 'username':'dummy'}];
+var messages = [{'msg':'This sadly gets flushed once Heroku restarts the dyno', 'username':'dummy', 'time':'14:12:22'}];
 
 
 app.use(express.static(process.cwd() + '/public'));
@@ -39,6 +39,7 @@ io.on('connection', function(socket){
   	let out = {};
   	out.msg = msg;
   	out.username = getName(socket);
+    out.time = getDateTime();
     io.emit('chat message', out);
     messages.push(out);
     if(messages.length>10){
@@ -66,7 +67,26 @@ var getName = function(socket){
 		return randomName;
 	}
 };
+
+
 var port = process.env.PORT || 3000;
 http.listen(port, function(){
   console.log('listening on *:'+port);
 });
+
+let getDateTime = function() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    return hour + ":" + min + ":" + sec;
+
+}
