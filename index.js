@@ -5,7 +5,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var hri = require('human-readable-ids').hri;
-var messages = [];
+var messages = [{'msg':'This sadly gets flushed once Heroku restarts the dyno', 'username':'dummy'}];
 
 
 app.use(express.static(process.cwd() + '/public'));
@@ -18,9 +18,9 @@ var clients = new Map();
 
 io.on('connection', function(socket){
   
+
   console.log('a user connected: '+socket.id+' as '+getName(socket));
   
-  console.log(clients.values());
   let arr = Array.from(clients.values());
 
   socket.emit('name change', getName(socket));
