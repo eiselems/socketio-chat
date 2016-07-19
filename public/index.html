@@ -13,6 +13,8 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jdenticon/1.3.2/jdenticon.min.js"></script>
+
 
 </head>
 <body style="font-family:Verdana">
@@ -111,7 +113,9 @@
   var showMessage = function(msg){
     let divMsg = $('<div>');
     $('#messages').append(divMsg);
-    let msgHtml = '<div class="media"><a class="pull-left" href="#"><img class="media-object img-circle " src="assets/img/user.png"></a><div class="media-body">'+msg.msg+'<br><small class="text-muted">'+msg.username+' | '+msg.time+'</small><hr></div></div>'; 
+    let hash = msg.username;
+    
+    let msgHtml = '<div class="media"><a class="pull-left" href="#"><img class="media-object img-circle " src="http://identicon.org?t='+hash+'&s=64&c=64"></a><div class="media-body">'+msg.msg+'<br><small class="text-muted">'+msg.username+' | '+msg.time+'</small><hr></div></div>'; 
     divMsg.html(msgHtml);
   };
 
@@ -130,7 +134,7 @@
     console.log(users);
     for (user of users){
         let divUser = $('<div>');
-        let userHtml = '<li class="media"><div class="media-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.png" /></a><div class="media-body" ><h5>'+user+'</h5><small class="text-muted">Active</small></div></div></div></li>';
+        let userHtml = '<li class="media"><div class="media-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-circle" style="max-height:40px;" src="http://identicon.org?t='+user+'&s=40&c=40" /></a><div class="media-body" ><h5>'+user+'</h5><small class="text-muted">Active</small></div></div></div></li>';
         divUser.html(userHtml);
         ulUsers.append(divUser);
     }
@@ -140,5 +144,6 @@
   socket.on('name change', function(name){
     $("#userName").val(name);
   });
+
 </script>
 </html>
